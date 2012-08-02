@@ -17,8 +17,12 @@ class link_list
 
 		Status  insert_node(int, Elemtype);
 		Status	delete_node(int, Elemtype&);
-		int 	getlength(){ return listlength;}
-		void 	printElem();
+		void 	printElem(void);
+        Status  getElem(int, Elemtype&);
+        void    sort(void);
+        link_list* unionlist(link_list*);
+        LinkList getHeader(void) { return header;}
+		int 	getlength(void){ return listlength;}
 
 	private:
 		LinkList 	header;

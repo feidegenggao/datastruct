@@ -20,9 +20,10 @@ link_list::~link_list()
 
 Status link_list::insert_node(int i, Elemtype e)
 {
-	if (i > listlength)
+    //insert e before the i'th elem, i between 0 to listlent + 1
+	if ((i < 0) || (i > listlength + 1))
 	{
-		std::cerr<<"i is greater than listlength"<<std::endl;
+		std::cerr<<"i is illegal"<<std::endl;
 		return ERROR;
 	}
 	else
@@ -42,6 +43,7 @@ Status link_list::insert_node(int i, Elemtype e)
 
 Status link_list::delete_node(int i, Elemtype& e)
 {
+    //delete the i'th elem
 	if ((i <= 0) || (i > listlength))
 	{
 		std::cerr<<"i is greater than listlength OR i is invaild"<<std::endl;
@@ -75,4 +77,79 @@ void link_list::printElem()
 		p = p->next;
 		loc++;
 	}
+}
+
+Status link_list::getElem(int loc, Elemtype& elm)
+{
+    if ((loc <= 0) || (loc > listlength))
+    {
+        cerr<<"loc is illegal"<<endl;
+        return ERROR;
+    }
+
+    node* p = header;
+    while (loc > 0)
+    {
+        loc--;
+        p = p->next;
+    }
+    elm = p->data;
+    return SUCCESS;
+}
+
+void link_list::sort(void)
+{
+    int cycle = listlength;
+    for (; cycle > 0; cycle--)
+    {
+        node* maxpointer = header->next;
+        node* p = header;
+
+        for (int incycle = cycle; incycle > 0; incycle--)
+        {
+            p = p->next;
+            if ( p->data > maxpointer->data)
+            {
+                maxpointer = p;
+            }
+        }
+
+        cout<<"***********************sort-start*******************************"<<endl;
+        cout<<"p->data:"<<p->data<<"\tmaxpointer->data:"<<maxpointer->data<<endl;
+        cout<<"<<<<<<<<<<<<<<<>>>>>>>>>>>>>"<<endl;
+        printElem();
+
+        Elemtype temp = maxpointer->data;
+        maxpointer->data = p->data;
+        p->data = temp;
+
+        printElem();
+        cout<<"***********************sort-end*******************************"<<endl;
+    }
+    cout<<"+++++++++++++++++++++++++++++"<<endl;
+    printElem();
+}
+
+link_list* link_list::unionlist(link_list* secondlist)
+{
+    //union this list and secondlist, the result is this list become biger,
+    //and some elem is the elem of secondlist
+
+    node* pfir = header->next;
+    node* psec = secondlist->getHeader()->next;
+
+    int n = listlength;
+    while (n > 1)
+    {
+        pfir = pfir->next;
+        n--;
+    }
+    pfir->next = psec;
+    listlength += secondlist->getlength();
+    cout<<"UNION"<<endl;
+    printElem();
+
+    sort();
+
+    return this;
 }
