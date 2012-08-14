@@ -16,15 +16,84 @@
  * =====================================================================================
  */
 #include    "Maze.h"
-#inlcude    "Stack.h"
+#include    "Stack.h"
+#include    "my.h"
 
-Status MazePath(Maze&, PosType&, PosType&);
+Status MazePath(Maze&, const PosType&, const PosType&);
 int
 main()
 {
-    Maze *ma = new Maze(6, 6);
+    Maze ma(6, 6);
     PosType start(1, 1);
     PosType end(4, 4);
 
+    if (SUCCESS == MazePath(ma, start, end))
+    {
+        cout<<"find the path of maze success"<<endl;
+        ma.PrintPath();
+    }
+    else
+    {
+        cout<<"can't find the path"<<endl;
+        ma.PrintPath();
+    }
+
     return 0;
+}
+
+Status MazePath(Maze &maze, const PosType &start, const PosType &end)
+{
+    PosType curpos = start;
+    int curstep = 1;
+    Stack s;
+    s.Init();
+
+    do{
+        if (maze.Pass(curpos))
+        {
+            maze.FootPrint(curpos);
+            Elemtype e(curstep, curpos, 1);
+            if ( ERROR == s.Push(e))
+            {
+                cerr<<"stack push error"<<endl;
+                return ERROR;
+            }
+
+            if (curpos == end)
+            {
+                cout<<"step:"<<curstep<<endl;
+                return SUCCESS;
+            }
+
+            maze.NextPos(curpos, 1);
+            curstep++;
+        }
+        else
+        {
+            if (ERROR == s.IsEmpty())
+            {
+                Elemtype e;
+                s.Pop(e);
+
+                while( e.di == 4 && (ERROR == s.IsEmpty()))
+                {
+                    maze.MarkPrint(e.seat);
+                    s.Pop(e);
+                }
+                if (e.di < 4)
+                {
+                    e.di++;
+                    if ( ERROR == s.Push(e))
+                    {
+                        cerr<<"stack push error"<<endl;
+                        return ERROR;
+                    }
+                    curpos = e.seat;
+                    maze.NextPos(curpos, e.di);
+                }
+            }
+        }
+    }while(ERROR == s.IsEmpty());
+
+    return ERROR;
 }

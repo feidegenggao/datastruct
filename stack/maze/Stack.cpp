@@ -58,7 +58,7 @@ Status Stack::Push(Elemtype &elm)
     }
     else if (m_StackSize == m_ElemSize)
     {
-        cerr<<"Stack overflow"<<endl;
+        cerr<<"Stack overflow"<<m_StackSize<<"/"<<m_ElemSize<<endl;
         return ERROR;
     }
     else
