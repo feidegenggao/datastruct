@@ -23,9 +23,9 @@ Status MazePath(Maze&, const PosType&, const PosType&);
 int
 main()
 {
-    Maze ma(6, 6);
+    Maze ma(MAZE_SIZE_X, MAZE_SIZE_Y);
     PosType start(1, 1);
-    PosType end(4, 4);
+    PosType end(MAZE_SIZE_X - 2, MAZE_SIZE_Y - 2);
 
     if (SUCCESS == MazePath(ma, start, end))
     {
@@ -61,7 +61,7 @@ Status MazePath(Maze &maze, const PosType &start, const PosType &end)
 
             if (curpos == end)
             {
-                cout<<"step:"<<curstep<<endl;
+                cout<<"sum of step:"<<curstep<<endl;
                 return SUCCESS;
             }
 
@@ -95,5 +95,6 @@ Status MazePath(Maze &maze, const PosType &start, const PosType &end)
         }
     }while(ERROR == s.IsEmpty());
 
+    cout<<"sum of step:"<<curstep<<endl;
     return ERROR;
 }

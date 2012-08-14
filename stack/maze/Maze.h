@@ -22,6 +22,9 @@
 #include    <vector>
 using std::vector;
 
+const int   MAZE_SIZE_X = 10;
+const int   MAZE_SIZE_Y = 10;
+
 class Maze{
     public:
         Maze(int x, int y);

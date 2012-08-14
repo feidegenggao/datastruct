@@ -1,5 +1,5 @@
 /*
- * =====================================================================================
+ * ============================================================================
  *
  *       Filename:  Maze.cpp
  *
@@ -13,7 +13,7 @@
  *         Author:  Higher (feidegenggao), liuxiaofei333@gmail.com
  *   Organization:  NDSL UESTC
  *
- * =====================================================================================
+ * ============================================================================
  */
 #include   "Maze.h"
 
@@ -34,6 +34,7 @@ Maze::Maze(int line, int row)
         maze.push_back(potx);
     }
 
+/*
     maze[1][1].isPass = 1;
     maze[1][3].isPass = 1;
 
@@ -47,6 +48,62 @@ Maze::Maze(int line, int row)
 
     //maze[4][3].isPass = 1;
     maze[4][4].isPass = 1;
+*/
+    maze[1][1].isPass = 1;
+    maze[1][2].isPass = 1;
+    maze[1][4].isPass = 1;
+    maze[1][5].isPass = 1;
+    maze[1][6].isPass = 1;
+    maze[1][8].isPass = 1;
+
+
+    maze[2][1].isPass = 1;
+    maze[2][2].isPass = 1;
+    maze[2][4].isPass = 1;
+    maze[2][5].isPass = 1;
+    maze[2][6].isPass = 1;
+    maze[2][8].isPass = 1;
+
+    maze[3][1].isPass = 1;
+    maze[3][2].isPass = 1;
+    maze[3][3].isPass = 1;
+    maze[3][4].isPass = 1;
+    maze[3][7].isPass = 1;
+    maze[3][8].isPass = 1;
+
+
+    maze[4][1].isPass = 1;
+    maze[4][5].isPass = 1;
+    maze[4][6].isPass = 1;
+    maze[4][7].isPass = 1;
+    maze[4][8].isPass = 1;
+
+    maze[5][1].isPass = 1;
+    maze[5][2].isPass = 1;
+    maze[5][3].isPass = 1;
+    maze[5][5].isPass = 1;
+    maze[5][6].isPass = 1;
+    maze[5][7].isPass = 1;
+    maze[5][8].isPass = 1;
+
+    maze[6][1].isPass = 1;
+    maze[6][3].isPass = 1;
+    maze[6][4].isPass = 1;
+    maze[6][5].isPass = 1;
+    maze[6][7].isPass = 1;
+    maze[6][8].isPass = 1;
+
+    maze[7][1].isPass = 1;
+    maze[7][8].isPass = 1;
+    maze[7][5].isPass = 1;
+
+    maze[8][2].isPass = 1;
+    maze[8][3].isPass = 1;
+    maze[8][4].isPass = 1;
+    maze[8][5].isPass = 1;
+    maze[8][6].isPass = 1;
+    maze[8][7].isPass = 1;
+    maze[8][8].isPass = 1;
 
     cout<<"Maze Map,"<<x<<" line"<<y<<" row"<<endl;
     for (int i = 0; i < x; i++)
@@ -79,6 +136,7 @@ int Maze::init()
 
 bool Maze::Pass(PosType &pos)
 {
+    //如果一个位置可以经过，则需满足位置可以通过，且没有走过。
     if ( (pos.x < x) && (pos.y < y))
     {
         if (maze[pos.x][pos.y].isPass == 1)
@@ -87,16 +145,9 @@ bool Maze::Pass(PosType &pos)
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
-        }
-        else if(maze[pos.x][pos.y].isPass == 0)
-        {
-            return false;
         }
     }
+        
     return false;
 }
 
@@ -153,11 +204,15 @@ int Maze::PrintPath()
         {
             if (maze[i][j].isThrough == 1)
             {
-                cout<<"& ";
+                cout<<"* ";
+            }
+            else if (maze[i][j].isPass == 1)
+            {
+                cout<<"1 ";
             }
             else
             {
-                cout<<"1 ";
+                cout<<"0 ";
             }
         }
         cout<<endl;
