@@ -19,42 +19,44 @@
 
 BinaryTree::BinaryTree()
 {
-    root = NULL;
-    depth = 0;
-    nodesum = 0;
+    m_root = NULL;
+    m_depth = 0;
+    m_nodesum = 0;
 }
 
 BinaryTree::~BinaryTree()
 {
-    delete [] root;
+    cout<<"destructor of BinaryTree"<<endl;
+    delete [] m_root;
 }
 
 Status BinaryTree::Init()
 {
-    root = new BiTNode();
-    bzero(root, sizeof(BiTNode));
-    depth = 0;
-    nodesum = 0;
+    m_depth = 0;
+    m_nodesum = 0;
 
-    CreateBiTree(root);
+    CreateBiTree(m_root);
 
     return SUCCESS;
 }
 
-Status BinaryTree::CreateBiTree(BiTree root)
+//这个地方参数是引用类型，会改变实参的值的。
+Status BinaryTree::CreateBiTree(BiTree &root)
 {
+    //Preorder traverse to create BiTree 
     TElemType data;
 
     cin>>data;
     if (-1 == data)
     {
         root = NULL;
+        return SUCCESS;
     }
     else
     {
-        BiTree root = new BiTNode();
+        root = new BiTNode();
         root->data = data;
-        nodesum++;
+        m_nodesum++;
         CreateBiTree(root->lchild);
         CreateBiTree(root->rchild);
     }
@@ -66,7 +68,7 @@ Status BinaryTree::ClearBiTree()
 
 bool BinaryTree::BiTreeEmpty()
 {
-    if (NULL == root)
+    if (NULL == m_root)
     {
         return true;
     }
@@ -74,4 +76,41 @@ bool BinaryTree::BiTreeEmpty()
     {
         return false;
     }
+}
+
+
+Status BinaryTree::PreOrderTraverse(BiTree root, Status(*Visit)(TElemType))
+{
+    if (NULL == root)
+    {
+        return SUCCESS;
+    }
+    else
+    {
+        if (ERROR == Visit(root->data))
+        {
+            return ERROR;
+        }
+        else
+        {
+        //    if (SUCCESS == PreOrderTraverse(root->lchild, Visit))
+        //        if (SUCCESS == PreOrderTraverse(root->rchild, Visit))
+        //            return SUCCESS;
+
+            PreOrderTraverse(root->lchild, Visit);
+            PreOrderTraverse(root->rchild, Visit);
+        }
+    }
+}
+
+Status BinaryTree::InOrderTraverse(BiTree root, Status(*Visit)(TElemType))
+{
+}
+
+Status BinaryTree::PostOrderTraverse(BiTree root, Status(*Visit)(TElemType))
+{
+}
+
+Status BinaryTree::LevelOrderTraverse(BiTree root, Status(*Visit)(TElemType))
+{
 }

@@ -3,6 +3,7 @@
 #include 	<iostream>
 #include    <errno.h>
 #include    <string.h>
+#include    <strings.h>
 using namespace std;
 using std::cout;
 using std::cerr;

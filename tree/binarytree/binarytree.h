@@ -41,19 +41,20 @@ class BinaryTree
 
         Status Init();
         Status ClearBiTree();
+        BiTree Root() { return m_root;}
         bool BiTreeEmpty();
-        int BiTreeDepth(){ return depth;}
-        int BiTreeNum(){ return nodesum;}
+        int BiTreeDepth(){ return m_depth;}
+        int BiTreeNum(){ return m_nodesum;}
 
-        Status PreOrderTraverse(Status(*Visit(TElemType)));
-        Status InOrderTraverse(Status(*Visit(TElemType)));
-        Status PostOrderTraverse(Status(*Visit(TElemType)));
-        Status LevelOrderTraverse(Status(*Visit(TElemType)));
+        Status PreOrderTraverse(BiTree, Status(* Visit)(TElemType));
+        Status InOrderTraverse(BiTree, Status(*Visit)(TElemType));
+        Status PostOrderTraverse(BiTree, Status(*Visit)(TElemType));
+        Status LevelOrderTraverse(BiTree, Status(*Visit)(TElemType));
         
     private:
-        Status CreateBiTree(BiTree);
-        BiTree root;
-        int depth;
-        int nodesum;
+        Status CreateBiTree(BiTree&);
+        BiTree m_root;
+        int m_depth;
+        int m_nodesum;
 };
 #endif

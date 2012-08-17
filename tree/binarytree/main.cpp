@@ -17,11 +17,20 @@
  */
 #include    "binarytree.h"
 
+Status Visit(TElemType );
 int main(void)
 {
     BinaryTree *btree = new BinaryTree();
 
     btree->Init();
+    btree->PreOrderTraverse(btree->Root(), Visit);
 
     return 0;
+}
+
+Status Visit(TElemType e)
+{
+    cout<<"DATA:"<<e<<endl;
+
+    return SUCCESS;
 }
