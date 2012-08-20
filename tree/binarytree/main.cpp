@@ -23,7 +23,14 @@ int main(void)
     BinaryTree *btree = new BinaryTree();
 
     btree->Init();
+    cout<<"PreOrderTraverse"<<endl;
     btree->PreOrderTraverse(btree->Root(), Visit);
+    cout<<"InOrderTraverse"<<endl;
+    btree->InOrderTraverse(btree->Root(), Visit);
+    cout<<"PostOrderTraverse"<<endl;
+    btree->PostOrderTraverse(btree->Root(), Visit);
+    cout<<"LevelOrderTraverse"<<endl;
+    btree->LevelOrderTraverse(btree->Root(), Visit);
 
     return 0;
 }

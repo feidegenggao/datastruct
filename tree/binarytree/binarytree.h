@@ -18,6 +18,7 @@
 #ifndef     _TREE_BINARYTREE_HEADER
 #define     _TREE_BINARYTREE_HEADER
 #include    "../../my.h"
+#include    <queue>
 
 typedef int TElemType;
 

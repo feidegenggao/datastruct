@@ -81,36 +81,72 @@ bool BinaryTree::BiTreeEmpty()
 
 Status BinaryTree::PreOrderTraverse(BiTree root, Status(*Visit)(TElemType))
 {
-    if (NULL == root)
+    if (root)
     {
-        return SUCCESS;
+        if (SUCCESS == Visit(root->data))
+            if (SUCCESS == PreOrderTraverse(root->lchild, Visit))
+                if (SUCCESS == PreOrderTraverse(root->rchild, Visit))
+                    return SUCCESS;
+        return ERROR;
     }
     else
-    {
-        if (ERROR == Visit(root->data))
-        {
-            return ERROR;
-        }
-        else
-        {
-        //    if (SUCCESS == PreOrderTraverse(root->lchild, Visit))
-        //        if (SUCCESS == PreOrderTraverse(root->rchild, Visit))
-        //            return SUCCESS;
-
-            PreOrderTraverse(root->lchild, Visit);
-            PreOrderTraverse(root->rchild, Visit);
-        }
-    }
+        return SUCCESS;
 }
 
 Status BinaryTree::InOrderTraverse(BiTree root, Status(*Visit)(TElemType))
 {
+    if (root)
+    {
+        if (SUCCESS == InOrderTraverse(root->lchild, Visit))
+            if (SUCCESS == Visit(root->data))
+                if (SUCCESS == InOrderTraverse(root->rchild, Visit))
+                    return SUCCESS;
+
+        return ERROR;
+    }
+    else
+        return SUCCESS;
 }
 
 Status BinaryTree::PostOrderTraverse(BiTree root, Status(*Visit)(TElemType))
 {
+    if (root)
+    {
+        if (SUCCESS == InOrderTraverse(root->lchild, Visit))
+            if (SUCCESS == InOrderTraverse(root->rchild, Visit))
+                if (SUCCESS == Visit(root->data))
+                    return SUCCESS;
+
+        return ERROR;
+    }
+    else
+        return SUCCESS;
 }
 
 Status BinaryTree::LevelOrderTraverse(BiTree root, Status(*Visit)(TElemType))
 {
+    queue<BiTree> nodeQueue;
+
+    nodeQueue.push(root);
+    int levelsize = 1;
+    while(!nodeQueue.empty())
+    {
+        int this_levelsize = 0;
+        for (int i = 0; i < levelsize; ++i)
+        {
+            if (nodeQueue.front()->lchild)
+            {
+                nodeQueue.push(nodeQueue.front()->lchild);
+                ++this_levelsize;
+            }
+            if (nodeQueue.front()->rchild)
+            {
+                nodeQueue.push(nodeQueue.front()->rchild);
+                ++this_levelsize;
+            }
+            Visit(nodeQueue.front()->data);
+            nodeQueue.pop();
+        }
+        levelsize = this_levelsize;
+    }
 }
