@@ -15,7 +15,7 @@
  *
  * ============================================================================
  */
-#include    "binarytree.h"
+#include    "BinaryTree.h"
 
 BinaryTree::BinaryTree()
 {
@@ -150,3 +150,145 @@ Status BinaryTree::LevelOrderTraverse(BiTree root, Status(*Visit)(TElemType))
         levelsize = this_levelsize;
     }
 }
+
+Status BinaryTree::PreOrderTraverse_NON_Recursion(
+       BiTree root,
+       Status(*Visit)(TElemType))
+{
+    Stack sBiTree;
+    sBiTree.Init();
+
+    sBiTree.Push(root);
+
+    while(ERROR == sBiTree.IsEmpty())
+    {
+        BiTree temp = NULL;
+        while ((SUCCESS == sBiTree.GetTop(temp)) && temp)
+        {
+            if (ERROR == Visit(temp->data))
+                return ERROR;
+            sBiTree.Push(temp->lchild);
+        }
+
+        sBiTree.Pop(temp);
+
+        if (ERROR == sBiTree.IsEmpty())
+        {
+            sBiTree.Pop(temp);
+            sBiTree.Push(temp->rchild);
+        }
+    }
+} 
+
+Status BinaryTree::InOrderTraverse_NON_Recursion(
+        BiTree root, 
+        Status(*Visit)(TElemType))
+{
+    Stack sBiTree;
+    sBiTree.Init();
+
+    sBiTree.Push(root);
+
+    while(ERROR == sBiTree.IsEmpty())
+    {
+        BiTree temp = NULL;
+        while((SUCCESS == sBiTree.GetTop(temp)) && temp)
+        {
+            sBiTree.Push(temp->lchild);
+        }
+        sBiTree.Pop(temp);
+
+        if (ERROR == sBiTree.IsEmpty())
+        {
+            sBiTree.Pop(temp);
+            if (ERROR == Visit(temp->data))
+            {
+                return ERROR;
+            }
+            sBiTree.Push(temp->rchild);
+        }
+    }
+
+    return SUCCESS;
+}
+
+Status BinaryTree::PostOrderTraverse_NON_Recursion(
+        BiTree root_argu,
+        Status(*Visit)(TElemType))
+{
+    BiTree root = root_argu;
+    Stack sBiTree;
+    sBiTree.Init();
+
+    while (root || (ERROR == sBiTree.IsEmpty()))
+    {
+        while (root)
+        {
+            sBiTree.Push(root);
+            root = root->lchild;
+        }
+
+        if (ERROR == sBiTree.IsEmpty())
+        {
+            sBiTree.GetTop(root);
+            if (root->flag)
+            {
+                if (ERROR == Visit(root->data))
+                    return ERROR;
+                sBiTree.Pop(root);
+                root = NULL;
+            }
+            else
+            {
+                root->flag = true;
+                root = root->rchild;
+            }
+        }
+    }
+}
+/*
+Status BinaryTree::PostOrderTraverse_NON_Recursion(
+        BiTree root,
+        Status(*Visit)(TElemType))
+{
+    Stack sBiTree;
+    sBiTree.Init();
+    sBiTree.Push(root);
+
+    while (ERROR == sBiTree.IsEmpty())
+    {
+        BiTree temp = NULL;
+        while((SUCCESS == sBiTree.GetTop(temp) && temp))
+        {
+            if ((temp->lchild)&&(!(temp->lchild->flag)))
+                temp->lchild->flag = true;
+            sBiTree.Push(temp->lchild);
+        }
+        sBiTree.Pop(temp);
+        if (ERROR == sBiTree.IsEmpty())
+        {
+            if (SUCCESS == sBiTree.GetTop(temp))
+            {
+                if (temp->flag)
+                {
+                    sBiTree.Pop(temp);
+                    if (ERROR == Visit(temp->data))
+                    {
+                        return ERROR;
+                    }
+                    temp->flag = false;
+                }
+                else
+                {
+                    temp->flag = true;
+                }
+                if ((temp->rchild) &&(!(temp->rchild->flag)))
+                    temp->rchild->flag = true;
+                sBiTree.Push(temp->rchild);
+            }
+        }
+    }
+
+    return SUCCESS;
+}
+*/

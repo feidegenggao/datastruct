@@ -15,7 +15,7 @@
  *
  * ============================================================================
  */
-#include    "binarytree.h"
+#include    "BinaryTree.h"
 
 Status Visit(TElemType );
 int main(void)
@@ -31,6 +31,12 @@ int main(void)
     btree->PostOrderTraverse(btree->Root(), Visit);
     cout<<"LevelOrderTraverse"<<endl;
     btree->LevelOrderTraverse(btree->Root(), Visit);
+    cout<<"InOrderTraverse_NON_Recursion"<<endl;
+    btree->InOrderTraverse_NON_Recursion(btree->Root(), Visit);
+    cout<<"PreOrderTraverse_NON_Recursion"<<endl;
+    btree->PreOrderTraverse_NON_Recursion(btree->Root(), Visit);
+    cout<<"PostOrderTraverse_NON_Recursion"<<endl;
+    btree->PostOrderTraverse_NON_Recursion(btree->Root(), Visit);
 
     return 0;
 }

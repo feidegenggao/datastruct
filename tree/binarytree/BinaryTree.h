@@ -18,22 +18,9 @@
 #ifndef     _TREE_BINARYTREE_HEADER
 #define     _TREE_BINARYTREE_HEADER
 #include    "../../my.h"
+#include    "ElemType.h"
+#include    "Stack.h"
 #include    <queue>
-
-typedef int TElemType;
-
-typedef struct BiTNode{
-    TElemType   data;
-    struct BiTNode *lchild, *rchild;
-
-    BiTNode()
-    {
-        data = 0;
-        lchild = NULL;
-        rchild = NULL;
-    }
-}BiTNode, *BiTree;
-
 class BinaryTree
 {
     public:
@@ -51,6 +38,10 @@ class BinaryTree
         Status InOrderTraverse(BiTree, Status(*Visit)(TElemType));
         Status PostOrderTraverse(BiTree, Status(*Visit)(TElemType));
         Status LevelOrderTraverse(BiTree, Status(*Visit)(TElemType));
+
+        Status PreOrderTraverse_NON_Recursion(BiTree, Status(*Visit)(TElemType));
+        Status InOrderTraverse_NON_Recursion(BiTree, Status(*Visit)(TElemType));
+        Status PostOrderTraverse_NON_Recursion(BiTree, Status(*Visit)(TElemType));
         
     private:
         Status CreateBiTree(BiTree&);
