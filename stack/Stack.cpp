@@ -108,3 +108,16 @@ Status Stack::Traverse(Status(*visist)(void*))
 
     return SUCCESS;
 }
+
+Status Stack::GetTop(Elemtype &elem)
+{
+    Elemtype temp;
+    if (SUCCESS == Pop(temp))
+    {
+        Push(temp);
+        elem = temp;
+        return SUCCESS;
+    }
+
+    return ERROR;
+}

@@ -1,6 +1,7 @@
-#include    "../my.h"
+#include    "my.h"
 #include    "Stack.h"
 
+typedef int Elemtype;
 void conversion(int temp);
 
 int

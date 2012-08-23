@@ -1,6 +1,6 @@
 #ifndef     _STACK_HEADER
 #define     _STACK_HEADER
-#include    "../my.h"
+#include    "my.h"
 
 const int STACK_INIT_SIZE = 100;
 const int STACK_INCREMENT = 10;
@@ -19,6 +19,7 @@ class Stack
         Status  Push(Elemtype&);
         Status  Pop(Elemtype&);
         Status  Traverse(Status(*vist)(void*));
+        Status  GetTop(Elemtype&);
 
         private:
         Elemtype    *m_pBase;

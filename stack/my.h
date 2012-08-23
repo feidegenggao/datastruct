@@ -9,8 +9,7 @@ using std::cout;
 using std::cerr;
 using std::endl;
 using std::cin;
-//使用该头文件的应该在自身目录中定义Elemtype的类型。
-//typedef int Elemtype
+typedef int Elemtype;
 typedef int Status;
 
 const Status ERROR = 1;
