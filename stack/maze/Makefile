@@ -1,2 +1,2 @@
 all:
-    g++ -g *.cpp -o maze
+	g++ -g *.cpp -o maze
