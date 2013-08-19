@@ -1,21 +1,19 @@
-#include    "my.h"
-#include    "Stack.h"
+#include    "stack.h"
+#include    <iostream>
+using namespace std;
 
-typedef int Elemtype;
 void conversion(int temp);
 
-int
-main()
+int main()
 {
-    Stack *sa = new Stack();
-    sa->Init();
+    Stack<int> *sa = new Stack<int>();
 
-    Elemtype itemp = 2;
+    int itemp = 2;
     sa->Push(itemp);
     itemp = 4;
     sa->Push(itemp);
 
-    while (ERROR == sa->IsEmpty())
+    while (!sa->IsEmpty())
     {
         if (SUCCESS == (sa->Pop(itemp)))
         {
@@ -29,22 +27,21 @@ main()
     return SUCCESS;
 }
 
-void conversion(Elemtype temp)
+void conversion(int temp)
 {
-    Stack *sb = new Stack();
-    Elemtype itemp;
-    sb->Init();
+    Stack<int> *sb = new Stack<int>();
+    int itemp;
 
     while(temp)
     {
-        Elemtype midle = temp%8;
+        int midle = temp%8;
         sb->Push(midle);
         cout<<"PUSH:"<<midle<<endl;
         temp = temp/8;
     }
 
     cout<<temp<<"Result-->>";
-    while (ERROR == sb->IsEmpty())
+    while (!sb->IsEmpty())
     {
         if (SUCCESS == (sb->Pop(itemp)))
         {
