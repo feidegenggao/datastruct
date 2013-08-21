@@ -17,42 +17,34 @@
  */
 #ifndef     _BINARYTREE_HEADER
 #define     _BINARYTREE_HEADER
-#include    <iostream>
-using std::cout;
-using std::endl;
-using std::cerr;
-#include    <cstddef>
+/*
+template<typename Type>
 class Node
 {
-    typedef int ElementData;
     public:
-        Node(ElementData data):data_(data), pleft_(NULL), pright_(NULL){}
-        ElementData data_;
-        Node*       pleft_;
-        Node*       pright_;
+        Node(Type data_ = 0):data(data_), pleft_(NULL), pright_(NULL){}
+
+        Type data;
+        Node*       pleft;
+        Node*       pright;
+};
+*/
+#include <cstddef>
+class Node
+{
+    public:
+        Node(int data_ = 0):data(data_), pleft(NULL), pright(NULL){}
+
+        int data;
+        Node*       pleft;
+        Node*       pright;
 };
 
-Node* CreateBinaryTree()
-{
-    Node *root = new Node(10);
+void PreOrderTraversalRecursive(Node *root, void (*visit)(int*));
+void InOrderTraversalRecursive(Node *root, void (*visit)(int*));
+void PostOrderTraversalRecursive(Node *root, void (*visit)(int*));
 
-    Node *node2 = new Node(6);
-    Node *node3 = new Node(14);
-
-    Node *node4 = new Node(4);
-    Node *node5 = new Node(8);
-    Node *node6 = new Node(12);
-    Node *node7 = new Node(18);
-
-    root->pleft_ = node2;
-    root->pright_ = node3;
-
-    node2->pleft_ = node4;
-    node2->pright_ = node5;
-
-    node3->pleft_ = node6;
-    node3->pright_ = node7;
-
-    return root;
-}
+void PreOrderTraversalNonRecursive(Node *root, void (*visit)(int*));
+void InOrderTraversalNonRecursive(Node *root, void (*visit)(int*));
+void PostOrderTraversalNonRecursive(Node *root, void (*visit)(int*));
 #endif
