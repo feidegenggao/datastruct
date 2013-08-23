@@ -38,4 +38,19 @@ void InOrderTraversalNonRecursive(Node *root, void (*visit)(int*));
 void PostOrderTraversalNonRecursive(Node *root, void (*visit)(int*));
 
 void LevelOrderTraversal(Node *root, void (*visit)(int*));
+
+class BinarySearchTree
+{
+    public:
+        explicit BinarySearchTree(int data):root(new Node(data)){}
+    public:
+        int Insert(int data);
+        int Search(int key);
+        int Delete(int key);
+        Node *Root() { return root;}
+
+    private:
+        int Search(int key, Node** pparent, Node** pnode);
+        Node *root;
+};
 #endif

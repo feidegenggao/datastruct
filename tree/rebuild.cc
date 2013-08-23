@@ -61,6 +61,21 @@ int main()
     PostOrderTraversalNonRecursive(root, &Visit);
 
     LevelOrderTraversal(root, &Visit);
+
+    BinarySearchTree first_binary_search_tree(4);
+    first_binary_search_tree.Insert(2);
+    first_binary_search_tree.Insert(1);
+    first_binary_search_tree.Insert(3);
+    first_binary_search_tree.Insert(6);
+    first_binary_search_tree.Insert(5);
+
+    first_binary_search_tree.Search(3);
+    first_binary_search_tree.Search(2);
+    first_binary_search_tree.Search(5);
+
+    LevelOrderTraversal(first_binary_search_tree.Root(), &Visit);
+    first_binary_search_tree.Delete(4);
+    LevelOrderTraversal(first_binary_search_tree.Root(), &Visit);
     return 0;
 }
 
