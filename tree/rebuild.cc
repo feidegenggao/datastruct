@@ -35,34 +35,31 @@ int main()
     vector<int> preorder, inorder;
     preorder.push_back(1);
     preorder.push_back(2);
-    preorder.push_back(4);
-    preorder.push_back(7);
-    preorder.push_back(10);
-    preorder.push_back(9);
     preorder.push_back(3);
     preorder.push_back(5);
     preorder.push_back(6);
-    preorder.push_back(8);
 
-    inorder.push_back(4);
-    inorder.push_back(10);
-    inorder.push_back(7);
-    inorder.push_back(9);
     inorder.push_back(2);
     inorder.push_back(1);
     inorder.push_back(5);
     inorder.push_back(3);
-    inorder.push_back(8);
     inorder.push_back(6);
 
     Rebuild(preorder, inorder, root);
 
-    assert(root != NULL);
+    cout << "PreOrderTraversalRecursive:" << endl;
+    PreOrderTraversalRecursive(root, &Visit);
+
+    cout << "InOrderTraversalRecursive:" << endl;
+    InOrderTraversalRecursive(root, &Visit);
+
+    cout << "PostOrderTraversalRecursive:" << endl;
+    PostOrderTraversalRecursive(root, &Visit);
+
     PreOrderTraversalNonRecursive(root, &Visit);
     InOrderTraversalNonRecursive(root, &Visit);
     PostOrderTraversalNonRecursive(root, &Visit);
     cout << "================" << endl;
-    PostOrderTraversalRecursive(root, &Visit);
     return 0;
 }
 
@@ -96,7 +93,7 @@ int Rebuild(vector<int> preorder, vector<int> inorder, Node* root)
         root->pleft = new Node();
         vector<int>::iterator sub_left_preorder_begin_it = ++preorder.begin();
         vector<int>::iterator sub_left_preorder_end_it = sub_left_preorder_begin_it;
-        for (int i = 0; i < sub_left_inorder.size(); ++i)
+        for (vector<int>::size_type i = 0; i < sub_left_inorder.size(); ++i)
         {
             sub_left_preorder_end_it++;
         }
@@ -114,7 +111,7 @@ int Rebuild(vector<int> preorder, vector<int> inorder, Node* root)
         root->pright = new Node();
         vector<int>::iterator sub_right_preorder_end_it = preorder.end();
         vector<int>::iterator sub_right_preorder_begin_it = sub_right_preorder_end_it;
-        for (int i = 0; i < sub_right_inorder.size(); ++i)
+        for (vector<int>::size_type i = 0; i < sub_right_inorder.size(); ++i)
         {
             --sub_right_preorder_begin_it;
         }

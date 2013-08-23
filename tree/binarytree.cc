@@ -112,18 +112,17 @@ void PostOrderTraversalNonRecursive(Node *root, void (*visit)(int*))
             root = root->pleft;
         }
 
+        while (!tree_stack.empty() and tree_stack.top().flag)
+        {
+            cout << "once" << endl;
+            visit(&(tree_stack.top().pnode->data));
+            tree_stack.pop();
+        }
+ 
         if (!tree_stack.empty())
         {
-            if (tree_stack.top().flag)
-            {
-                visit(&(tree_stack.top().pnode->data));
-                tree_stack.pop();
-            }
-            else
-            {
-                tree_stack.top().flag = true;
-                root = tree_stack.top().pnode->pright;
-            }
+            tree_stack.top().flag = true;
+            root = tree_stack.top().pnode->pright;
         }
     }
 }
