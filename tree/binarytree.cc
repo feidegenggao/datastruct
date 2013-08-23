@@ -114,7 +114,6 @@ void PostOrderTraversalNonRecursive(Node *root, void (*visit)(int*))
 
         while (!tree_stack.empty() and tree_stack.top().flag)
         {
-            cout << "once" << endl;
             visit(&(tree_stack.top().pnode->data));
             tree_stack.pop();
         }
@@ -125,4 +124,44 @@ void PostOrderTraversalNonRecursive(Node *root, void (*visit)(int*))
             root = tree_stack.top().pnode->pright;
         }
     }
+}
+
+#include    <queue>
+void LevelOrderTraversal(Node *root, void (*visit)(int*))
+{
+    cout << "LevelOrderTraversal:" << endl;
+   if (NULL == root or NULL == visit) return; 
+
+   queue<Node*> level_queue;
+   queue<Node*> next_level_queue;
+   level_queue.push(root);
+
+   //flag:true(this level has elements
+   //flag:false(this level has no elements, and we can return
+   //bool flag = true;
+   int level = 1;
+   while (!level_queue.empty())
+   {
+       //clear next_level_queue to prepare to store data
+       while (!next_level_queue.empty())
+       {
+           next_level_queue.pop();
+       }
+
+       cout << "==== level:" << level++ << " ====" << endl;
+       while (!level_queue.empty())
+       {
+           Node *temp = level_queue.front();
+           if (temp)
+               visit(&(temp->data));
+           if (temp->pleft)
+               next_level_queue.push(temp->pleft);
+           if (temp->pright)
+               next_level_queue.push(temp->pright);
+
+           level_queue.pop();
+       }
+       level_queue = next_level_queue;
+   }
+   cout << "====   END   ====" << endl;
 }

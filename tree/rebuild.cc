@@ -59,7 +59,8 @@ int main()
     PreOrderTraversalNonRecursive(root, &Visit);
     InOrderTraversalNonRecursive(root, &Visit);
     PostOrderTraversalNonRecursive(root, &Visit);
-    cout << "================" << endl;
+
+    LevelOrderTraversal(root, &Visit);
     return 0;
 }
 

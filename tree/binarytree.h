@@ -17,18 +17,7 @@
  */
 #ifndef     _BINARYTREE_HEADER
 #define     _BINARYTREE_HEADER
-/*
-template<typename Type>
-class Node
-{
-    public:
-        Node(Type data_ = 0):data(data_), pleft_(NULL), pright_(NULL){}
-
-        Type data;
-        Node*       pleft;
-        Node*       pright;
-};
-*/
+//The type of tree_node's data is int not use templates
 #include <cstddef>
 class Node
 {
@@ -47,4 +36,6 @@ void PostOrderTraversalRecursive(Node *root, void (*visit)(int*));
 void PreOrderTraversalNonRecursive(Node *root, void (*visit)(int*));
 void InOrderTraversalNonRecursive(Node *root, void (*visit)(int*));
 void PostOrderTraversalNonRecursive(Node *root, void (*visit)(int*));
+
+void LevelOrderTraversal(Node *root, void (*visit)(int*));
 #endif
