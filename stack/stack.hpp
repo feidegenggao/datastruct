@@ -23,7 +23,7 @@ class Stack
         bool IsEmpty();
         int     Length() { return m_ElemSize;}
         int     Size()   { return m_StackSize;}
-        Status  Push(Elemtype&);
+        Status  Push(const Elemtype&);
         Status  Pop(Elemtype&);
         Status  Traverse(Status(*vist)(void*));
         Status  GetTop(Elemtype&);
@@ -96,7 +96,7 @@ bool Stack<Elemtype>::IsEmpty()
 }
 
 template <typename Elemtype>
-Status Stack<Elemtype>::Push(Elemtype &elm)
+Status Stack<Elemtype>::Push(const Elemtype &elm)
 {
     if (m_pBase == NULL)
     {

@@ -15,7 +15,7 @@
  *
  * ============================================================================
  */
-#include    "stack.h"
+#include    "stack.hpp"
 #include    <iostream>
 #include    <string>
 using namespace std;
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     string brackets;
     if (argc == 1)
     {
-        brackets = string("[({}))]");
+        brackets = string("[({})]");
     }
     else if (argc == 2)
     {
@@ -37,8 +37,74 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    Stack bracket_stack;
-    for (
+    cout << "brackets:" << brackets << endl;
+
+    Stack<char> bracket_stack;
+    for (string::const_iterator it = brackets.begin(); it != brackets.end(); it++)
+    {
+        char temp = '#';
+        bracket_stack.GetTop(temp);
+        switch (*it)
+        {
+            case '[':
+            case '{':
+            case '(':
+                {
+                    bracket_stack.Push(*it);
+                    break;
+                }
+            case ']':
+                {
+                    if (temp == '[')
+                    {
+                        bracket_stack.Pop(temp);
+                    }
+                    else
+                    {
+                        cerr << "Empty stack with ]" << endl;
+                        return -1;
+                    }
+
+                    break;
+                }
+            case '}':
+                {
+                    if (temp == '{')
+                    {
+                        bracket_stack.Pop(temp);
+                    }
+                    else
+                    {
+                        cerr << "Empty stack with }" << endl;
+                        return -1;
+                    }
+
+                    break;
+                }
+            case ')':
+                {
+                    if (temp == '(')
+                    {
+                        bracket_stack.Pop(temp);
+                    }
+                    else
+                    {
+                        cerr << "Empty stack with )" << endl;
+                        return -1;
+                    }
+
+                    break;
+                }
+
+            default:
+                {
+                    //Error conditions
+                    cerr << "non char" << endl;
+                    return -1;
+                }
+        }
+    }
+    cout << "Prefect" << endl;
 
     return 0;
 }

@@ -20,7 +20,7 @@
 #include    <iostream>
 using namespace std;
 
-#include    "stack.h"
+#include    "stack.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     int num_decimal = atoi(argv[1]);
     assert(num_decimal > 0);
 
-    Stack octal_stack;
+    Stack<int> octal_stack;
     while (num_decimal != 0)
     {
         int temp = num_decimal % dest_system;
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     cout << "Result:" << endl;
     while (!octal_stack.IsEmpty())
     {
-        Elemtype temp;
+        int temp;
         octal_stack.Pop(temp);
         cout << temp;
     }
